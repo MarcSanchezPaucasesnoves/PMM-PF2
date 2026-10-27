@@ -1,3 +1,4 @@
+
 class Persona {
   String name;
   String surname;
@@ -5,7 +6,7 @@ class Persona {
   String password;
   DateTime birthDate;
 
-  Persona.complete({
+  Persona({
     required this.name,
     required this.surname,
     required this.eAddress,
@@ -13,6 +14,8 @@ class Persona {
     required this.birthDate
   });
 
-
+  String getOnlyBirthDate() {
+    return birthDate.toString().substring(1, 10);
+  }
 
 }

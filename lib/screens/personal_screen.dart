@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pmm_pf2/models/persona.dart';
 
 class PersonalScreen extends StatefulWidget {
   const PersonalScreen({super.key});

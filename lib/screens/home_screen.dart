@@ -9,7 +9,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Persona _persona = Persona.complete(name: "", surname: "", eAddress: "", password: "", birthDate: DateTime(0, 0, 0));
+  Persona _persona = Persona(name: "", surname: "", eAddress: "", password: "", birthDate: DateTime(1, 1, 1));
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,14 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text("Name: ${_persona.name}"),
+            Text("Surname: ${_persona.surname}"),
+            Text("Email address: ${_persona.eAddress}"),
+            Text("Password: ${_persona.password}"),
+            Text("Birthdate: ${_persona.getOnlyBirthDate()}"),
             ElevatedButton(
               child: Text("Edit Profile"),
-              onPressed:() => Navigator.of(context).pushNamed("/personal_screen"),
+              onPressed:() => Navigator.of(context).pushNamed("/personal_screen", arguments: _persona),
             ),
             ElevatedButton(
               child: Text("Explore Widget Showcase"),
