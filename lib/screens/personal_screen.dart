@@ -60,15 +60,15 @@ class _PersonalScreenState extends State<PersonalScreen> {
         
           children: [
             _inputName(),
-            Divider(),
+            SizedBox(height: 20),
             _inputSurname(),
-            Divider(),
+            SizedBox(height: 20),
             _inputEmail(),
-            Divider(),
+            SizedBox(height: 20),
             _inputPassword(),
-            Divider(),
+            SizedBox(height: 20),
             _inputData(),
-            Divider(),
+            SizedBox(height: 20),
             ElevatedButton(
               child: Text("Save and return"),
               
