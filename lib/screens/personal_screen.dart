@@ -11,6 +11,8 @@ class PersonalScreen extends StatefulWidget {
 }
 
 class _PersonalScreenState extends State<PersonalScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   bool _isFirstLoad = true;
   late String _name;
   late String _surname;
@@ -18,6 +20,8 @@ class _PersonalScreenState extends State<PersonalScreen> {
   late String _password;
   late DateTime _birthDate;
   late Persona _persona;
+
+
   TextEditingController _inputFieldDataController = TextEditingController();
   late DateTime _inputDataDate;
   
@@ -49,33 +53,41 @@ class _PersonalScreenState extends State<PersonalScreen> {
       appBar: AppBar(
         title: Text("${_persona.surname} - Edit Profile"),
       ),
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-
-        children: [
-          _inputName(),
-          Divider(),
-          _inputSurname(),
-          Divider(),
-          _inputEmail(),
-          Divider(),
-          _inputPassword(),
-          Divider(),
-          _inputData(),
-          Divider(),
-          ElevatedButton(
-            child: Text("Save and return"),
-            onPressed: () => Navigator.of(context).pop(Persona(name: _name, surname: _surname, eAddress: _eAddress, password: _password, birthDate: _birthDate)), 
-          )
-        ],
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+        
+          children: [
+            _inputName(),
+            Divider(),
+            _inputSurname(),
+            Divider(),
+            _inputEmail(),
+            Divider(),
+            _inputPassword(),
+            Divider(),
+            _inputData(),
+            Divider(),
+            ElevatedButton(
+              child: Text("Save and return"),
+              
+              onPressed:() {
+                if (_formKey.currentState!.validate()) {
+                  Navigator.of(context).pop(Persona(name: _name, surname: _surname, eAddress: _eAddress, password: _password, birthDate: _birthDate));
+                }
+              }, 
+            )
+          ],
+        ),
       ),
     );
   }
 
 
 
-  TextField _inputName() {
-    return TextField(
+  TextFormField _inputName() {
+    return TextFormField(
       textCapitalization: TextCapitalization.sentences,
       controller: TextEditingController(text: _name),
       decoration: InputDecoration(
@@ -85,14 +97,15 @@ class _PersonalScreenState extends State<PersonalScreen> {
           borderRadius: BorderRadius.circular(20.0)
         ),
       ),
+      validator: (value) => _validateInputString(value, "El nom no pot estar buid"),
       onChanged:(value) {
         _name = value;
       },
     );
   }
 
-  TextField _inputSurname() {
-    return TextField(
+  TextFormField _inputSurname() {
+    return TextFormField(
       textCapitalization: TextCapitalization.sentences,
       controller: TextEditingController(text: _surname),
       decoration: InputDecoration(
@@ -102,14 +115,15 @@ class _PersonalScreenState extends State<PersonalScreen> {
           borderRadius: BorderRadius.circular(20.0)
         ),
       ),
+      validator: (value) => _validateInputString(value, "El cognom no pot estar buid"),
       onChanged:(value) {
         _surname = value;
       },
     );
   }
 
-  TextField _inputEmail() {
-    return TextField(
+  TextFormField _inputEmail() {
+    return TextFormField(
       keyboardType: TextInputType.emailAddress,
       controller: TextEditingController(text: _eAddress),
       decoration: InputDecoration(
@@ -119,14 +133,15 @@ class _PersonalScreenState extends State<PersonalScreen> {
           borderRadius: BorderRadius.circular(20.0)
         ),
       ),
+      validator: (value) => _validateInputString(value, "El mail no pot estar buid"),
       onChanged:(value) {
         _eAddress = value;
       },
     );
   }
 
-  TextField _inputPassword() {
-    return TextField(
+  TextFormField _inputPassword() {
+    return TextFormField(
       obscureText: true,
       textCapitalization: TextCapitalization.sentences,
       controller: TextEditingController(text: _password),
@@ -137,6 +152,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
           borderRadius: BorderRadius.circular(20.0)
         ),
       ),
+      validator: (value) => _validateInputString(value, "La contrasenya no pot estar buida"),
       inputFormatters: [
         FilteringTextInputFormatter.deny(RegExp(r'\s')),
       ],
@@ -146,8 +162,8 @@ class _PersonalScreenState extends State<PersonalScreen> {
     );
   }
 
-  TextField _inputData() {
-    return TextField(
+  TextFormField _inputData() {
+    return TextFormField(
       enableInteractiveSelection: false,
       controller: _inputFieldDataController,
       readOnly: true,
@@ -159,6 +175,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
           borderRadius: BorderRadius.circular(20.0)
         ),
       ),
+      validator: (value) => _validateInputString(value, "La data no pot estar buida"),
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
         _selectData(context);
@@ -181,4 +198,9 @@ class _PersonalScreenState extends State<PersonalScreen> {
       });
     }
   }
+}
+
+String? _validateInputString(String? value, String errorMessage) {
+  if (value == null || StringFormatter.stringIsEmpty(value)) return errorMessage;
+  return null;
 }
