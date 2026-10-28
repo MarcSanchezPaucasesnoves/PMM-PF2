@@ -28,7 +28,15 @@ class _HomeScreenState extends State<HomeScreen> {
             Text("Birthdate: ${_persona.getOnlyBirthDate()}"),
             ElevatedButton(
               child: Text("Edit Profile"),
-              onPressed:() => Navigator.of(context).pushNamed("/personal_screen", arguments: _persona),
+              onPressed:() => Navigator.of(context)
+                .pushNamed("/personal_screen", arguments: _persona)
+                .then(((value) {
+                  if (value != null) {
+                    setState(() {
+                      _persona = value as Persona;
+                    });
+                  }
+                })),
             ),
             ElevatedButton(
               child: Text("Explore Widget Showcase"),
