@@ -1,5 +1,4 @@
-
-import 'package:pmm_pf2/utils/date_formatter.dart';
+import 'package:pmm_pf2/utils/string_formatter.dart';
 
 class Persona {
   String name;
@@ -18,7 +17,7 @@ class Persona {
 
   String getOnlyBirthDate() {
     if (birthDate == DateTime(1, 1, 1)) return "";
-    return DateFormatter.dateToString(birthDate);
+    return StringFormatter.dateToString(birthDate);
   }
 
 }

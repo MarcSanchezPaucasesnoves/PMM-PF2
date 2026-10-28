@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pmm_pf2/models/persona.dart';
-import 'package:pmm_pf2/utils/date_formatter.dart';
+import 'package:pmm_pf2/utils/string_formatter.dart';
 
 class PersonalScreen extends StatefulWidget {
   const PersonalScreen({super.key});
@@ -136,6 +137,9 @@ class _PersonalScreenState extends State<PersonalScreen> {
           borderRadius: BorderRadius.circular(20.0)
         ),
       ),
+      inputFormatters: [
+        FilteringTextInputFormatter.deny(RegExp(r'\s')),
+      ],
       onChanged:(value) {
         _password = value;
       },
@@ -172,7 +176,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
     );
     if (picked != null) {
       setState(() {
-        _inputFieldDataController.text = DateFormatter.dateToString(picked as DateTime);
+        _inputFieldDataController.text = StringFormatter.dateToString(picked as DateTime);
         _birthDate = picked;
       });
     }
