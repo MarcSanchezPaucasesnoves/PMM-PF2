@@ -51,7 +51,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${_persona.surname} - Edit Profile"),
+        title: _appBarTitle(),
       ),
       body: Form(
         key: _formKey,
@@ -197,6 +197,14 @@ class _PersonalScreenState extends State<PersonalScreen> {
         _birthDate = picked;
       });
     }
+  }
+
+
+
+
+  Text _appBarTitle(){
+    if (StringFormatter.stringIsEmpty(_surname)) return Text("Edit Profile");
+    return Text("$_surname - Edit Profile");
   }
 }
 
