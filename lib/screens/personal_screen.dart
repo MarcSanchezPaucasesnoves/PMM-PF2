@@ -22,7 +22,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
   late Persona _persona;
 
 
-  TextEditingController _inputFieldDataController = TextEditingController();
+  final TextEditingController _inputFieldDataController = TextEditingController();
   late DateTime _inputDataDate;
   late String _primarySurname;
   

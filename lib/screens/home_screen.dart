@@ -17,34 +17,67 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text("DevProfile M3"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Column(
           children: [
-            Text("Name: ${_persona.name}"),
-            Text("Surname: ${_persona.surname}"),
-            Text("Email address: ${_persona.eAddress}"),
-            Text("Password: ${_persona.password}"),
-            Text("Birthdate: ${_persona.getOnlyBirthDate()}"),
-            ElevatedButton(
-              child: Text("Edit Profile"),
-              onPressed:() => Navigator.of(context)
-                .pushNamed("/personal_screen", arguments: _persona)
-                .then(((value) {
-                  if (value != null) {
-                    setState(() {
-                      _persona = value as Persona;
-                    });
-                  }
-                })),
+            Card(
+              margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0)
+              ),
+              elevation: 4,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ListTile(
+                      leading: Icon(Icons.person),
+                      title: Text("Name"),
+                      subtitle: Text(_persona.name),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.person),
+                      title: Text("Surname"),
+                      subtitle: Text(_persona.surname),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.email),
+                      title: Text("Email address"),
+                      subtitle: Text(_persona.eAddress),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.lock),
+                      title: Text("Password"),
+                      subtitle: Text(_persona.password),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.calendar_month),
+                      title: Text("Birthdate"),
+                      subtitle: Text(_persona.getOnlyBirthDate()),
+                    ),
+                    FilledButton(
+                      child: Text("Edit Profile"),
+                      onPressed:() => Navigator.of(context)
+                        .pushNamed("/personal_screen", arguments: _persona)
+                        .then(((value) {
+                          if (value != null) {
+                            setState(() {
+                              _persona = value as Persona;
+                            });
+                          }
+                        })),
+                    ),
+                  ],
+                )
+              ),
             ),
+            
             ElevatedButton(
               child: Text("Explore Widget Showcase"),
               onPressed: () { }
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 }
