@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pmm_pf2/screens/home_screen.dart';
-import 'package:pmm_pf2/screens/personal_screen.dart';
+import 'package:pmm_pf2/routes/app_routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,10 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "DevProfile & Widget Showcase",
-      routes: {
-        "/": (context) => HomeScreen(),
-        "/personal_screen":(context) => PersonalScreen(),
-      },
+      routes: getRoutes(),
     );
   }
 }

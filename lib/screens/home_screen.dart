@@ -74,7 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
             
             ElevatedButton(
               child: Text("Explore Widget Showcase"),
-              onPressed: () { }
+              onPressed:() => Navigator.of(context)
+                .pushNamed("/widget_screen"),
             ),
           ],
         ),
