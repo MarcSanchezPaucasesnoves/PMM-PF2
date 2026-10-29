@@ -20,4 +20,8 @@ class Persona {
     return StringFormatter.dateToString(birthDate);
   }
 
+  String getPrimarySurname() {
+    return surname.split(" ")[0];
+  }
+
 }

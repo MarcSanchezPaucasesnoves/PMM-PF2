@@ -9,6 +9,6 @@ class StringFormatter {
   }
 
   static String stringWithoutSpaces(String text){
-    return text.trim();
+    return text.trim().replaceAll(RegExp(r'\s+'), " ");
   }
 }

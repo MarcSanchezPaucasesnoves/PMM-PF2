@@ -24,6 +24,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
 
   TextEditingController _inputFieldDataController = TextEditingController();
   late DateTime _inputDataDate;
+  late String _primarySurname;
   
 
   @override
@@ -37,6 +38,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
       _password = _persona.password;
       _birthDate = _persona.birthDate;
       _inputDataDate = _birthDate;
+      _primarySurname = _persona.getPrimarySurname();
       _inputFieldDataController.text = _persona.getOnlyBirthDate();
 
       if (_inputFieldDataController.text == "") {
@@ -74,6 +76,10 @@ class _PersonalScreenState extends State<PersonalScreen> {
               
               onPressed:() {
                 if (_formKey.currentState!.validate()) {
+                  _name = StringFormatter.stringWithoutSpaces(_name);
+                  _surname = StringFormatter.stringWithoutSpaces(_surname);
+                  _eAddress = StringFormatter.stringWithoutSpaces(_eAddress);
+                  _password = StringFormatter.stringWithoutSpaces(_password);
                   Navigator.of(context).pop(Persona(name: _name, surname: _surname, eAddress: _eAddress, password: _password, birthDate: _birthDate));
                 }
               }, 
@@ -204,7 +210,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
 
   Text _appBarTitle(){
     if (StringFormatter.stringIsEmpty(_surname)) return Text("Edit Profile");
-    return Text("$_surname - Edit Profile");
+    return Text("$_primarySurname - Edit Profile");
   }
 }
 
