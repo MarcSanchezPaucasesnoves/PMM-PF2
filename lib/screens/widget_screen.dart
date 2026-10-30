@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pmm_pf2/widgets/dismissible_widget.dart';
 import 'package:pmm_pf2/widgets/navigation_bar_widget.dart';
 
 class WidgetScreen extends StatefulWidget {
@@ -10,6 +11,7 @@ class WidgetScreen extends StatefulWidget {
 
 class _WidgetScreenState extends State<WidgetScreen> {
   int _currentPageIndex = 0;
+  List<int> _dismissibleList = List<int>.generate(20, (int index) => index);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class _WidgetScreenState extends State<WidgetScreen> {
         title: Text("Navigation bar"),
       ),
       bottomNavigationBar: _createNavigationBar(),
-      body: [Text("Dismissible"), Text("ReorderableListView"), Text("GridView")][_currentPageIndex],
+      body: [_createDismissibleList(), Text("ReorderableListView"), Text("GridView")][_currentPageIndex],
     );
   }
 
@@ -45,6 +47,18 @@ class _WidgetScreenState extends State<WidgetScreen> {
           _currentPageIndex = index;
         });
       }
+    );
+  }
+
+
+  ListView _createDismissibleList(){
+    return getDismissibleList(
+      numberList: _dismissibleList, 
+      onRightDismiss:(index) {
+        setState(() {
+          _dismissibleList.removeAt(index);
+        });
+      },
     );
   }
 
