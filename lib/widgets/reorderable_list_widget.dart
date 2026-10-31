@@ -16,11 +16,5 @@ ReorderableList getReorderableList({required List<int> itemsList, required Funct
       );
     },
     onReorderItem: onReorderItem,
-    // (int oldIndex, int newIndex) {
-    //   setState(() {
-    //     final int item = itemsList.removeAt(oldIndex);
-    //     itemsList.insert(newIndex, item);
-    //   });
-    // },
   );
 }
