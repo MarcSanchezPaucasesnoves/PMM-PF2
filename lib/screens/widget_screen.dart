@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pmm_pf2/widgets/dismissible_widget.dart';
+import 'package:pmm_pf2/widgets/grid_view_widget.dart';
 import 'package:pmm_pf2/widgets/navigation_bar_widget.dart';
 import 'package:pmm_pf2/widgets/reorderable_list_widget.dart';
 
@@ -12,7 +13,7 @@ class WidgetScreen extends StatefulWidget {
 
 class _WidgetScreenState extends State<WidgetScreen> {
   int _currentPageIndex = 0;
-  List<int> _itemList = List<int>.generate(20, (int index) => index);
+  final List<int> _itemList = List<int>.generate(18, (int index) => index+1);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class _WidgetScreenState extends State<WidgetScreen> {
         title: Text("Navigation bar"),
       ),
       bottomNavigationBar: _createNavigationBar(),
-      body: [_createDismissibleList(), _createReorderableList(), Text("GridView")][_currentPageIndex],
+      body: [_createDismissibleList(), _createReorderableList(), _createGridView()][_currentPageIndex],
     );
   }
 
@@ -73,6 +74,12 @@ class _WidgetScreenState extends State<WidgetScreen> {
           _itemList.insert(newIndex, item);
         });
       },
+    );
+  }
+
+  GridView _createGridView() {
+    return getGridView(
+      itemList: _itemList,
     );
   }
 }
