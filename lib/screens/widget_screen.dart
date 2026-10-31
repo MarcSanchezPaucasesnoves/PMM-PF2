@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pmm_pf2/widgets/dismissible_widget.dart';
 import 'package:pmm_pf2/widgets/navigation_bar_widget.dart';
+import 'package:pmm_pf2/widgets/reorderable_list_widget.dart';
 
 class WidgetScreen extends StatefulWidget {
   WidgetScreen({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class WidgetScreen extends StatefulWidget {
 
 class _WidgetScreenState extends State<WidgetScreen> {
   int _currentPageIndex = 0;
-  List<int> _dismissibleList = List<int>.generate(20, (int index) => index);
+  List<int> _itemList = List<int>.generate(20, (int index) => index);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class _WidgetScreenState extends State<WidgetScreen> {
         title: Text("Navigation bar"),
       ),
       bottomNavigationBar: _createNavigationBar(),
-      body: [_createDismissibleList(), Text("ReorderableListView"), Text("GridView")][_currentPageIndex],
+      body: [_createDismissibleList(), _createReorderableList(), Text("GridView")][_currentPageIndex],
     );
   }
 
@@ -53,13 +54,25 @@ class _WidgetScreenState extends State<WidgetScreen> {
 
   ListView _createDismissibleList(){
     return getDismissibleList(
-      numberList: _dismissibleList, 
+      numberList: _itemList, 
       onRightDismiss:(index) {
         setState(() {
-          _dismissibleList.removeAt(index);
+          _itemList.removeAt(index);
         });
       },
     );
   }
 
+
+  ReorderableList _createReorderableList() {
+    return getReorderableList(
+      itemsList: _itemList, 
+      onReorderItem:(int oldIndex, int newIndex) {
+        setState(() {
+          final int item = _itemList.removeAt(oldIndex);
+          _itemList.insert(newIndex, item);
+        });
+      },
+    );
+  }
 }
